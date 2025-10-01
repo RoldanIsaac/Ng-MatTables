@@ -1,5 +1,5 @@
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
-  <!-- Header & Primary Row -->
+  <!-- Header & Primary cols -->
   <ng-container *ngFor="let col of cols()">
     <ng-container matColumnDef="{{ col }}">
       <th mat-header-cell *matHeaderCellDef>{{ col }}.</th>
@@ -15,7 +15,7 @@
     </ng-container>
   </ng-container>
 
-  <!-- Secondary Row -->
+  <!-- Secondary cols -->
   <ng-container *ngIf="secondCols()">
     <ng-container *ngFor="let col of secondCols()">
       <ng-container matColumnDef="{{ col }}">
@@ -30,13 +30,18 @@
     </ng-container>
   </ng-container>
 
+  <!-- Header row -->
   <tr mat-header-row *matHeaderRowDef="cols()"></tr>
+
+  <!-- Default row  -->
   <tr mat-row *matRowDef="let row; columns: cols()"></tr>
 
+  <!-- Secondary row  -->
   <ng-container *ngIf="secondCols()">
     <tr mat-row *matRowDef="let row; columns: secondCols()"></tr>
   </ng-container>
 
+  <!-- Footer row -->
   <ng-container *ngIf="isTotalRow()">
     <tr mat-footer-row *matFooterRowDef="cols()" class="!bg-green-100"></tr>
   </ng-container>
