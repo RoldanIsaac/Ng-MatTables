@@ -1,0 +1,43 @@
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <!-- Header & Primary Row -->
+  <ng-container *ngFor="let col of cols()">
+    <ng-container matColumnDef="{{ col }}">
+      <th mat-header-cell *matHeaderCellDef>{{ col }}.</th>
+      <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
+
+      <!-- 
+        Footer cells (Do not define asignation for 
+        cols in this case | *matFooterCellDef remains unasigned ) 
+       -->
+      <ng-container *ngIf="isTotalRow()">
+        <td mat-footer-cell *matFooterCellDef></td
+      ></ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!-- Secondary Row -->
+  <ng-container *ngIf="secondCols()">
+    <ng-container *ngFor="let col of secondCols()">
+      <ng-container matColumnDef="{{ col }}">
+        <td
+          mat-cell
+          [attr.colspan]="cols().length / 2"
+          *matCellDef="let element"
+        >
+          Secondary row for the element {{ element.name }}
+        </td>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="cols()"></tr>
+  <tr mat-row *matRowDef="let row; columns: cols()"></tr>
+
+  <ng-container *ngIf="secondCols()">
+    <tr mat-row *matRowDef="let row; columns: secondCols()"></tr>
+  </ng-container>
+
+  <ng-container *ngIf="isTotalRow()">
+    <tr mat-footer-row *matFooterRowDef="cols()" class="!bg-green-100"></tr>
+  </ng-container>
+</table>
